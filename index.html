@@ -3,195 +3,445 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Portfolio of Christy Roy, a Robotics & Automation engineering student. Exploring projects in computer vision, IoT, autonomous vehicles, and embedded systems.">
-    <meta name="keywords" content="Robotics Engineer, Computer Vision, IoT, Python, ROS, Embedded Systems, Portfolio">
+    <meta name="description" content="Christy Roy — Robotics & Automation Engineering student building intelligent systems that bridge hardware and human experience.">
+    <meta property="og:title" content="Christy Roy | Robotics & Automation Engineer">
+    <meta property="og:description" content="Building intelligent robotic systems — from 5-DOF manipulators to AI-powered IoT devices.">
+    <meta property="og:type" content="website">
     <link rel="canonical" href="https://christy101git.github.io/christyroy/" />
-    <title>Christy Roy | Robotics & Automation Engineering Portfolio</title>
-    
-    <link rel="icon" href="assets/favicon.ico" type="image/x-icon">
-    <link rel="shortcut icon" href="assets/favicon.ico" type="image/x-icon">
+    <title>Christy Roy | Robotics & Automation Engineer</title>
+    <link rel="icon" href="assets/favicon.ico">
     <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16x16.png">
     <link rel="manifest" href="assets/site.webmanifest">
-    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
-    
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <header class="header" id="header">
-        <nav class="nav container">
-            <a href="#" class="nav__logo">Christy</a>
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-follower" id="cursor-follower"></div>
+  <div class="scroll-progress" id="scroll-progress"></div>
+  <div class="grain-overlay" aria-hidden="true"></div>
 
-            <div class="nav__menu" id="nav-menu">
-                <ul class="nav__list">
-                    <li class="nav__item">
-                        <a href="#about" class="nav__link">About</a>
-                    </li>
-                    <li class="nav__item">
-                        <a href="#projects" class="nav__link">Projects</a>
-                    </li>
-                    <li class="nav__item">
-                        <a href="#skills" class="nav__link">Skills</a>
-                    </li>
-                    <li class="nav__item">
-                        <a href="#contact" class="nav__link">Contact</a>
-                    </li>
-                </ul>
+  <!-- KINETIC FULLSCREEN NAV OVERLAY -->
+  <div class="nav-overlay" id="nav-overlay" data-state="closed">
+    <div class="nav-overlay__bg">
+      <div class="nav-overlay__panel p1"></div>
+      <div class="nav-overlay__panel p2"></div>
+      <div class="nav-overlay__panel p3"></div>
+    </div>
+    <div class="nav-shapes" aria-hidden="true">
+      <svg class="nav-shape shape-about" viewBox="0 0 500 500">
+        <circle class="s-el" cx="100" cy="150" r="70" fill="rgba(0,212,255,0.07)"/>
+        <circle class="s-el" cx="360" cy="100" r="100" fill="rgba(0,212,255,0.05)"/>
+        <circle class="s-el" cx="240" cy="360" r="120" fill="rgba(57,255,126,0.04)"/>
+      </svg>
+      <svg class="nav-shape shape-projects" viewBox="0 0 500 500">
+        <rect class="s-el" x="40" y="40" width="180" height="180" rx="20" fill="rgba(0,212,255,0.07)" transform="rotate(15 130 130)"/>
+        <rect class="s-el" x="260" y="190" width="200" height="200" rx="30" fill="rgba(57,255,126,0.05)" transform="rotate(-8 360 290)"/>
+      </svg>
+      <svg class="nav-shape shape-skills" viewBox="0 0 500 500">
+        <polygon class="s-el" points="250,40 460,190 380,430 120,430 40,190" fill="rgba(0,212,255,0.06)"/>
+        <circle class="s-el" cx="250" cy="250" r="30" fill="rgba(0,212,255,0.1)"/>
+      </svg>
+      <svg class="nav-shape shape-certs" viewBox="0 0 500 500">
+        <path class="s-el" d="M60 250 Q250 40 440 250 Q250 460 60 250Z" fill="rgba(0,212,255,0.06)"/>
+        <path class="s-el" d="M120 250 Q250 100 380 250 Q250 400 120 250Z" fill="rgba(57,255,126,0.05)"/>
+      </svg>
+      <svg class="nav-shape shape-contact" viewBox="0 0 500 500">
+        <line class="s-el" x1="30" y1="80" x2="420" y2="470" stroke="rgba(0,212,255,0.12)" stroke-width="45"/>
+        <line class="s-el" x1="140" y1="30" x2="510" y2="400" stroke="rgba(57,255,126,0.08)" stroke-width="35"/>
+      </svg>
+    </div>
+    <nav class="nav-overlay__content">
+      <ul class="nav-overlay__list">
+        <li class="nav-overlay__item" data-shape="about">
+          <a href="#about" class="nav-overlay__link"><span class="nav-num">01</span><span class="nav-text">About</span></a>
+        </li>
+        <li class="nav-overlay__item" data-shape="projects">
+          <a href="#projects" class="nav-overlay__link"><span class="nav-num">02</span><span class="nav-text">Projects</span></a>
+        </li>
+        <li class="nav-overlay__item" data-shape="skills">
+          <a href="#skills" class="nav-overlay__link"><span class="nav-num">03</span><span class="nav-text">Skills</span></a>
+        </li>
+        <li class="nav-overlay__item" data-shape="certs">
+          <a href="#certifications" class="nav-overlay__link"><span class="nav-num">04</span><span class="nav-text">Certifications</span></a>
+        </li>
+        <li class="nav-overlay__item" data-shape="contact">
+          <a href="#contact" class="nav-overlay__link"><span class="nav-num">05</span><span class="nav-text">Contact</span></a>
+        </li>
+      </ul>
+      <div class="nav-overlay__footer">
+        <div class="nav-avail"><span class="status-dot"></span><span>Available for internships & projects</span></div>
+        <div class="nav-socials">
+          <a href="https://github.com/christy-roy-tech" target="_blank"><i class="fab fa-github"></i></a>
+          <a href="https://www.linkedin.com/in/christy-roy-tech" target="_blank"><i class="fab fa-linkedin"></i></a>
+          <a href="https://www.instagram.com/christy_o.o_?igsh=M3ZiMXFtaHJvc2k3" target="_blank"><i class="fab fa-instagram"></i></a>
+        </div>
+      </div>
+    </nav>
+  </div>
+
+  <!-- HEADER -->
+  <header class="header" id="header">
+    <div class="header-inner">
+      <a href="#" class="header-logo">
+        <span class="logo-cr">CR</span>
+        <span class="logo-sep">/</span>
+        <span class="logo-name">Christy Roy</span>
+      </a>
+      <div class="header-badge">
+        <span class="status-dot"></span>
+        <span>Open to opportunities</span>
+      </div>
+      <div class="header-actions">
+        <a href="assets/christy-roy-resume.pdf" download class="btn-resume">
+          <i class="fa-solid fa-download"></i> Resume
+        </a>
+        <button class="menu-toggle" id="menu-toggle" aria-expanded="false" aria-label="Toggle menu">
+          <span class="menu-label">Menu</span>
+          <div class="menu-bars"><span></span><span></span></div>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- HERO -->
+    <section class="hero" id="home">
+      <div class="hero-grid-bg" aria-hidden="true"></div>
+      <div class="hero-glow" aria-hidden="true"></div>
+      <div class="hero-inner">
+        <div class="hero-content">
+          <div class="hero-eyebrow">
+            <span class="eyebrow-dot"></span>
+            <span class="mono">Robotics & Automation Engineer</span>
+          </div>
+          <h1 class="hero-name">
+            <span class="name-first">CHRISTY</span>
+            <span class="name-last">ROY</span>
+          </h1>
+          <p class="hero-tagline">
+            I build <strong>intelligent systems</strong> that bridge hardware precision 
+            and intuitive human experience — from 5-DOF manipulators 
+            to AI-powered IoT devices.
+          </p>
+          <div class="hero-ctas">
+            <a href="#projects" class="btn btn-primary">View My Work <i class="fa-solid fa-arrow-right"></i></a>
+            <a href="#contact" class="btn btn-ghost">Let's Talk</a>
+          </div>
+          <div class="hero-stats">
+            <div class="hstat"><span class="hstat-val mono">4+</span><span class="hstat-lbl">Projects</span></div>
+            <div class="hstat-sep"></div>
+            <div class="hstat"><span class="hstat-val mono">B.Tech</span><span class="hstat-lbl">R&A Eng.</span></div>
+            <div class="hstat-sep"></div>
+            <div class="hstat"><span class="hstat-val mono">Kerala</span><span class="hstat-lbl">India</span></div>
+          </div>
+        </div>
+        <div class="hero-visual">
+          <div class="hero-photo-wrap">
+            <div class="photo-glow"></div>
+            <img src="assets/ME.jpg" alt="Christy Roy" class="hero-photo">
+            <div class="photo-tag tag-py"><i class="fa-brands fa-python"></i> Python</div>
+            <div class="photo-tag tag-esp">ESP32</div>
+            <div class="photo-tag tag-ros"><i class="fa-solid fa-robot"></i> ROS</div>
+          </div>
+          <div class="hero-terminal">
+            <div class="term-bar">
+              <span class="td r"></span><span class="td y"></span><span class="td g"></span>
+              <span class="term-title mono">christy@engineer: ~</span>
             </div>
-
-            <div class="nav__actions">
-                <i class="fa-solid fa-moon theme-toggle" id="theme-toggle"></i>
+            <div class="term-body mono">
+              <p><span class="tp">$</span> <span class="tc">whoami</span></p>
+              <p class="to">christy_roy</p>
+              <p><span class="tp">$</span> <span class="tc">cat focus.txt</span></p>
+              <p class="to">Robotics · CV · IoT · Embedded</p>
+              <p><span class="tp">$</span> <span class="tc">echo $STATUS</span></p>
+              <p class="to tg">Open to Internships ✓</p>
+              <p><span class="tp">$</span> <span class="tblink">_</span></p>
             </div>
-        </nav>
-    </header>
+          </div>
+        </div>
+      </div>
+      <div class="ticker">
+        <div class="ticker-track">
+          <span>B.Tech Robotics & Automation</span><span class="td-dot">◆</span>
+          <span>Computer Vision</span><span class="td-dot">◆</span>
+          <span>ESP32 · Arduino · ROS</span><span class="td-dot">◆</span>
+          <span>Available for Internships</span><span class="td-dot">◆</span>
+          <span>Kerala, India</span><span class="td-dot">◆</span>
+          <span>Python · C · JavaScript</span><span class="td-dot">◆</span>
+          <span>IoT Systems Builder</span><span class="td-dot">◆</span>
+          <span>Hackathon Enthusiast</span><span class="td-dot">◆</span>
+          <!-- Duplicate for loop -->
+          <span>B.Tech Robotics & Automation</span><span class="td-dot">◆</span>
+          <span>Computer Vision</span><span class="td-dot">◆</span>
+          <span>ESP32 · Arduino · ROS</span><span class="td-dot">◆</span>
+          <span>Available for Internships</span><span class="td-dot">◆</span>
+          <span>Kerala, India</span><span class="td-dot">◆</span>
+          <span>Python · C · JavaScript</span><span class="td-dot">◆</span>
+          <span>IoT Systems Builder</span><span class="td-dot">◆</span>
+          <span>Hackathon Enthusiast</span><span class="td-dot">◆</span>
+        </div>
+      </div>
+    </section>
 
-    <main class="main">
-        <section class="hero section" id="home">
-            <div class="hero__container container grid">
-                <div class="hero__data">
-                    <h1 class="hero__title">CHRISTY ROY</h1>
-                    <h2 class="hero__subtitle">Aspiring Robotics Engineer</h2>
-                    <p class="hero__tagline">
-                        Crafting intelligent systems where hardware meets human-centric design.
-                    </p>
-                    <a href="#contact" class="button">Get In Touch</a>
-                </div>
-
-                <div class="hero__image-container">
-                    <div class="hero__photo-circle">
-                        <img src="assets/ME.jpg" alt="Christy Roy" class="hero__photo">
-                        </div>
-                </div>
+    <!-- ABOUT -->
+    <section class="sec about" id="about">
+      <div class="container">
+        <div class="sec-hd anim">
+          <span class="sec-num mono">01</span>
+          <h2 class="sec-title">About Me</h2>
+        </div>
+        <div class="about-grid">
+          <div class="about-left anim" style="--d:0.1s">
+            <div class="about-photo-wrap">
+              <img src="assets/profile-photo.jpg" alt="Christy Roy" class="about-photo">
+              <div class="about-photo-acc"></div>
             </div>
-        </section>
-
-        <section class="about section animate-on-scroll" id="about">
-            <h2 class="section__title">About Me</h2>
-            <div class="about__container container grid">
-                <div class="about__image-container">
-                    <img src="assets/profile-photo.jpg" alt="Profile photo of Christy Roy" class="about__img">
-                </div>
-                <div class="about__data">
-                    <p class="about__description">
-                        I am a passionate Robotics and Automation engineering student with a deep fascination for the Internet of Things (IoT). My goal is to build automated systems that are not only functional but also intuitive and beautiful to interact with, blending my technical skills with a keen eye for UI/UX design.
-                        <br><br>
-                        Outside of my projects, I thrive in collaborative environments, enjoy strategic thinking in gaming, and am always diving into a new book.
-                    </p>
-                </div>
+            <div class="about-facts">
+              <div class="fact"><span class="fk mono">Degree</span><span class="fv">B.Tech Robotics & Automation</span></div>
+              <div class="fact"><span class="fk mono">College</span><span class="fv">[Your College Name]</span></div>
+              <div class="fact"><span class="fk mono">Grad Year</span><span class="fv">2027</span></div>
+              <div class="fact"><span class="fk mono">Location</span><span class="fv">Kerala, India</span></div>
+              <div class="fact"><span class="fk mono">Languages</span><span class="fv">English, Malayalam</span></div>
             </div>
-        </section>
-
-        <section class="projects section animate-on-scroll" id="projects">
-            <h2 class="section__title">Projects</h2>
-            <div class="projects__container container grid">
-                <div class="project__card">
-                    <img src="assets/project-1.png" alt="IoT Smart Home Hub Project" class="project__img">
-                    <div class="project__overlay">
-                        <h3 class="project__title">ESP NOW ENABLED 5 DOF ROBOTIC MANIPULATOR</h3>
-                        <p class="project__description">5 DOF industrial manipulator with custom GUI control.</p>
-                        <div class="project__links">
-                            <a href="https://github.com/Christy-Roy-tech/esp-now-5dof-manipulator" target="_blank" class="project__link"><i class="fab fa-github"></i></a>
-                        </div>
-                    </div>
-                </div>
-
-
-                <div class="project__card">
-                    <img src="assets/project-3.png" alt="Automated Plant Watering System" class="project__img">
-                    <div class="project__overlay">
-                        <h3 class="project__title">Automated Plant Watering</h3>
-                        <p class="project__description">A system using Arduino and soil moisture sensors to automate plant care.</p>
-                        <div class="project__links">
-                            <a href="" target="_blank" class="project__link"><i class="fab fa-github"></i></a>
-                        </div>
-                    </div>
-                </div>
-
-
+          </div>
+          <div class="about-right anim" style="--d:0.2s">
+            <p class="about-para">I'm a Robotics & Automation engineering student who builds systems where <strong>hardware meets intelligence</strong>. My approach combines embedded systems expertise with a product designer's eye — because a robot that people can't intuitively operate is just an expensive paperweight.</p>
+            <p class="about-para">I've shipped a <em>5-DOF wireless manipulator</em> with an ESP-NOW control layer and custom Python GUI, autonomous IoT systems, and I'm currently building a computer vision pipeline for real-time object detection on embedded platforms.</p>
+            <p class="about-para">Beyond the lab: hackathons, strategy gaming, and whatever science fiction novel happens to be about robots this month.</p>
+            <div class="about-counters">
+              <div class="ac"><span class="ac-val">4+</span><span class="ac-lbl">Projects Built</span></div>
+              <div class="ac"><span class="ac-val">8+</span><span class="ac-lbl">Technologies</span></div>
+              <div class="ac"><span class="ac-val">∞</span><span class="ac-lbl">Curiosity</span></div>
             </div>
-        </section>
+            <a href="assets/christy-roy-resume.pdf" download class="btn btn-primary">
+              <i class="fa-solid fa-download"></i> Download Resume
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
 
-        <section class="skills section animate-on-scroll" id="skills">
-            <h2 class="section__title">My Skillset</h2>
-            <div class="skills__container container grid">
-                <div class="skills__group">
-                    <h3 class="skills__group-title">Languages & Frameworks</h3>
-                    <div class="skills__grid">
-                        <div class="skill__card"><i class="fa-brands fa-python"></i> Python</div>
-                        <div class="skill__card">C</div>
-                        <div class="skill__card"><i class="fa-brands fa-html5"></i> HTML/CSS</div>
-                        <div class="skill__card"><i class="fa-brands fa-js"></i> JavaScript</div>
-                        <div class="skill__card">ROS</div>
-                    </div>
-                </div>
+    <!-- PROJECTS -->
+    <section class="sec projects" id="projects">
+      <div class="container">
+        <div class="sec-hd anim">
+          <span class="sec-num mono">02</span>
+          <h2 class="sec-title">Selected Work</h2>
+          <p class="sec-sub">Problems I've solved with code and circuits.</p>
+        </div>
+        <div class="proj-list">
 
-                <div class="skills__group">
-                    <h3 class="skills__group-title">Hardware & IoT</h3>
-                    <div class="skills__grid">
-                        <div class="skill__card">Arduino</div>
-                        <div class="skill__card">Raspberry Pi</div>
-                        <div class="skill__card">ESP32</div>
-                        <div class="skill__card">MQTT</div>
-                    </div>
-                </div>
-
-                <div class="skills__group">
-                    <h3 class="skills__group-title">Design & Tools</h3>
-                    <div class="skills__grid">
-                        <div class="skill__card"><i class="fa-brands fa-figma"></i> Figma</div>
-                        <div class="skill__card">Adobe XD</div>
-                        <div class="skill__card"><i class="fa-brands fa-git-alt"></i> Git</div>
-                        <div class="skill__card"><i class="fa-brands fa-github"></i> GitHub</div>
-                    </div>
-                </div>
+          <article class="proj-card anim" style="--d:0.05s">
+            <div class="proj-img-wrap">
+              <img src="assets/project-1.png" alt="ESP-NOW 5-DOF Robotic Manipulator" class="proj-img" loading="lazy">
+              <div class="proj-img-ov"></div>
             </div>
-        </section>
-
-        <section class="contact section" id="contact">
-            <h2 class="section__title">Let's Connect</h2>
-            <div class="contact__container container">
-                <form action="https://formspree.io/f/xzzaygbd" method="POST" class="contact__form">
-                   <div class="contact__form-group">
-                    <input type="text" name="name" class="contact__input" placeholder="Your Name" required>
-                    </div>
-                    <div class="contact__form-group">
-                    <input type="email" name="email" class="contact__input" placeholder="Your Email" required>
-                    </div>
-                    <div class="contact__form-group">
-                    <textarea name="message" class="contact__input" placeholder="Your Message" rows="5" required></textarea>
-                    </div>
-
-                    <button type="submit" class="button">Send Message</button>
-                </form>
-
-                <div class="contact__socials">
-                    <a href="https://github.com/christy-roy-tech" target="_blank" class="contact__social-link" aria-label="GitHub">
-                        <i class="fab fa-github"></i>
-                    </a>
-                    <a href="https://www.linkedin.com/in/christy-roy-tech" target="_blank" class="contact__social-link" aria-label="LinkedIn">
-                        <i class="fab fa-linkedin"></i>
-                    </a>
-                    <a href="https://www.instagram.com/christy_o.o_?igsh=M3ZiMXFtaHJvc2k3" target="_blank" class="contact__social-link" aria-label="Instagram">
-                        <i class="fab fa-instagram"></i>
-                    </a>
-                </div>
+            <div class="proj-body">
+              <div class="proj-meta"><span class="mono muted">01 / Hardware & Software</span><span class="mono subtle">2024</span></div>
+              <h3 class="proj-title">ESP-NOW 5-DOF<br>Robotic Manipulator</h3>
+              <p class="proj-desc">Industrial robot arms are expensive and cable-bound. I built a 5-axis manipulator controlled wirelessly over ESP-NOW with a custom Python GUI for real-time joint-level control — zero latency, zero cables.</p>
+              <div class="proj-tags"><span>ESP32</span><span>ESP-NOW</span><span>Python</span><span>Servo Control</span><span>Custom GUI</span></div>
+              <a href="https://github.com/Christy-Roy-tech/esp-now-5dof-manipulator" target="_blank" class="proj-link"><span>View on GitHub</span><i class="fab fa-github"></i></a>
             </div>
-        </section>
+          </article>
 
-    </main>
-    
-    <script src="script.js"></script>
+          <article class="proj-card proj-flip anim" style="--d:0.1s">
+            <div class="proj-img-wrap">
+              <img src="assets/project-3.png" alt="Automated Plant Watering System" class="proj-img" loading="lazy">
+              <div class="proj-img-ov"></div>
+            </div>
+            <div class="proj-body">
+              <div class="proj-meta"><span class="mono muted">02 / IoT & Automation</span><span class="mono subtle">2024</span></div>
+              <h3 class="proj-title">Automated Plant<br>Watering System</h3>
+              <p class="proj-desc">Manual watering is inconsistent and error-prone. This Arduino-based system reads soil moisture continuously and triggers a relay-controlled pump — maintaining optimal plant hydration autonomously, around the clock.</p>
+              <div class="proj-tags"><span>Arduino</span><span>Soil Sensors</span><span>Relay Control</span><span>IoT</span></div>
+              <a href="https://github.com/christy-roy-tech" target="_blank" class="proj-link"><span>View on GitHub</span><i class="fab fa-github"></i></a>
+            </div>
+          </article>
+
+          <article class="proj-card anim" style="--d:0.15s">
+            <div class="proj-img-wrap">
+              <img src="assets/project-2.png" alt="Computer Vision Object Tracker" class="proj-img" loading="lazy">
+              <div class="proj-img-ov"></div>
+            </div>
+            <div class="proj-body">
+              <div class="proj-meta"><span class="mono muted">03 / Computer Vision</span><span class="mono subtle">2025</span></div>
+              <h3 class="proj-title">Real-Time Object<br>Tracker [CV]</h3>
+              <p class="proj-desc">A real-time object detection and tracking pipeline using OpenCV and Python, capable of identifying and following multiple targets across video frames on a Raspberry Pi — a foundation for autonomous robotic vision.</p>
+              <div class="proj-tags"><span>Python</span><span>OpenCV</span><span>Raspberry Pi</span><span>Computer Vision</span></div>
+              <a href="https://github.com/christy-roy-tech" target="_blank" class="proj-link"><span>View on GitHub</span><i class="fab fa-github"></i></a>
+            </div>
+          </article>
+
+          <article class="proj-card proj-flip proj-wip anim" style="--d:0.2s">
+            <div class="proj-img-wrap">
+              <img src="assets/project-4.png" alt="Upcoming Autonomous Navigation project" class="proj-img" loading="lazy">
+              <div class="proj-img-ov proj-img-ov--wip"></div>
+              <div class="wip-badge"><span class="status-dot"></span> In Progress</div>
+            </div>
+            <div class="proj-body">
+              <div class="proj-meta"><span class="mono muted">04 / Autonomous Systems</span><span class="mono subtle">2025</span></div>
+              <h3 class="proj-title">Autonomous<br>Navigation System</h3>
+              <p class="proj-desc">Currently building an autonomous ground vehicle using ROS2 and ultrasonic/LiDAR sensor fusion for obstacle avoidance and path planning — combining SLAM principles with embedded control loops.</p>
+              <div class="proj-tags"><span>ROS2</span><span>SLAM</span><span>Sensor Fusion</span><span>C++</span><span>LiDAR</span></div>
+              <span class="proj-link proj-link--wip"><span>Coming Soon</span><i class="fa-regular fa-clock"></i></span>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- CERTIFICATIONS -->
+    <section class="sec certifications" id="certifications">
+      <div class="container">
+        <div class="sec-hd anim">
+          <span class="sec-num mono">03</span>
+          <h2 class="sec-title">Certifications</h2>
+          <p class="sec-sub">Verified learning milestones — click to verify.</p>
+        </div>
+        <div class="certs-grid">
+          <!-- Replace href="#" with your actual certificate URL -->
+          <a href="#" target="_blank" class="cert-card anim" style="--d:0.05s">
+            <div class="cert-icon"><i class="fa-brands fa-python"></i></div>
+            <div class="cert-body"><h3 class="cert-title">Python for Robotics</h3><p class="cert-issuer">[Platform Name]</p><span class="cert-date mono">2024</span></div>
+            <i class="fa-solid fa-arrow-up-right-from-square cert-arrow"></i>
+          </a>
+          <a href="#" target="_blank" class="cert-card anim" style="--d:0.1s">
+            <div class="cert-icon"><i class="fa-solid fa-robot"></i></div>
+            <div class="cert-body"><h3 class="cert-title">ROS Fundamentals</h3><p class="cert-issuer">[Platform Name]</p><span class="cert-date mono">2024</span></div>
+            <i class="fa-solid fa-arrow-up-right-from-square cert-arrow"></i>
+          </a>
+          <a href="#" target="_blank" class="cert-card anim" style="--d:0.15s">
+            <div class="cert-icon"><i class="fa-solid fa-microchip"></i></div>
+            <div class="cert-body"><h3 class="cert-title">IoT with Arduino</h3><p class="cert-issuer">[Platform Name]</p><span class="cert-date mono">2024</span></div>
+            <i class="fa-solid fa-arrow-up-right-from-square cert-arrow"></i>
+          </a>
+          <a href="#" target="_blank" class="cert-card anim" style="--d:0.2s">
+            <div class="cert-icon"><i class="fa-solid fa-eye"></i></div>
+            <div class="cert-body"><h3 class="cert-title">Computer Vision Basics</h3><p class="cert-issuer">[Platform Name]</p><span class="cert-date mono">2025</span></div>
+            <i class="fa-solid fa-arrow-up-right-from-square cert-arrow"></i>
+          </a>
+          <a href="#" target="_blank" class="cert-card anim" style="--d:0.25s">
+            <div class="cert-icon"><i class="fa-brands fa-git-alt"></i></div>
+            <div class="cert-body"><h3 class="cert-title">Git & Version Control</h3><p class="cert-issuer">[Platform Name]</p><span class="cert-date mono">2023</span></div>
+            <i class="fa-solid fa-arrow-up-right-from-square cert-arrow"></i>
+          </a>
+          <a href="#" target="_blank" class="cert-card anim" style="--d:0.3s">
+            <div class="cert-icon"><i class="fa-solid fa-brain"></i></div>
+            <div class="cert-body"><h3 class="cert-title">Intro to Machine Learning</h3><p class="cert-issuer">[Platform Name]</p><span class="cert-date mono">2025</span></div>
+            <i class="fa-solid fa-arrow-up-right-from-square cert-arrow"></i>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- SKILLS -->
+    <section class="sec skills" id="skills">
+      <div class="container">
+        <div class="sec-hd anim">
+          <span class="sec-num mono">04</span>
+          <h2 class="sec-title">My Skillset</h2>
+        </div>
+        <div class="skills-groups">
+          <div class="sg anim" style="--d:0.05s">
+            <h3 class="sg-label mono"><span class="accent">//</span> Languages</h3>
+            <div class="sg-tags">
+              <span class="stag stag-hi"><i class="fa-brands fa-python"></i> Python</span>
+              <span class="stag">C</span><span class="stag">C++</span>
+              <span class="stag"><i class="fa-brands fa-html5"></i> HTML/CSS</span>
+              <span class="stag"><i class="fa-brands fa-js"></i> JavaScript</span>
+            </div>
+          </div>
+          <div class="sg anim" style="--d:0.1s">
+            <h3 class="sg-label mono"><span class="accent">//</span> Frameworks & Tools</h3>
+            <div class="sg-tags">
+              <span class="stag stag-hi">ROS / ROS2</span>
+              <span class="stag">OpenCV</span><span class="stag">MQTT</span>
+              <span class="stag"><i class="fa-brands fa-git-alt"></i> Git</span>
+              <span class="stag"><i class="fa-brands fa-github"></i> GitHub</span>
+            </div>
+          </div>
+          <div class="sg anim" style="--d:0.15s">
+            <h3 class="sg-label mono"><span class="accent">//</span> Hardware & Platforms</h3>
+            <div class="sg-tags">
+              <span class="stag stag-hi">ESP32</span>
+              <span class="stag">Arduino</span><span class="stag">Raspberry Pi</span>
+              <span class="stag">Servo Motors</span><span class="stag">Sensor Integration</span>
+            </div>
+          </div>
+          <div class="sg anim" style="--d:0.2s">
+            <h3 class="sg-label mono"><span class="accent">//</span> Design & CAD</h3>
+            <div class="sg-tags">
+              <span class="stag"><i class="fa-brands fa-figma"></i> SolidWorks</span>
+              <span class="stag">Adobe XD</span><span class="stag">Figma</span>
+              <span class="stag">UI/UX Design</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section class="sec contact" id="contact">
+      <div class="container">
+        <div class="contact-grid">
+          <div class="contact-left anim">
+            <span class="sec-num mono">05</span>
+            <h2 class="contact-title">Let's build<br><em>something</em><br>together.</h2>
+            <p class="contact-sub">Open to internships, collaborative projects, research opportunities, and interesting engineering problems.</p>
+            <a href="mailto:christyroy123roy687@gmail.com" class="contact-email">christyroy123roy687@gmail.com</a>
+            <div class="contact-socials">
+              <a href="https://github.com/christy-roy-tech" target="_blank" class="social-btn" aria-label="GitHub"><i class="fab fa-github"></i></a>
+              <a href="https://www.linkedin.com/in/christy-roy-tech" target="_blank" class="social-btn" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+              <a href="https://www.instagram.com/christy_o.o_?igsh=M3ZiMXFtaHJvc2k3" target="_blank" class="social-btn" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            </div>
+          </div>
+          <div class="contact-right anim" style="--d:0.15s">
+            <form action="https://formspree.io/f/xzzaygbd" method="POST" class="contact-form" id="contact-form">
+              <div class="fg"><label for="name" class="fl mono">Your Name</label><input type="text" id="name" name="name" class="fi" placeholder="Arjun Menon" required></div>
+              <div class="fg"><label for="email" class="fl mono">Email Address</label><input type="email" id="email" name="email" class="fi" placeholder="arjun@company.com" required></div>
+              <div class="fg">
+                <label for="subject" class="fl mono">What's This About?</label>
+                <select id="subject" name="subject" class="fi fi-select">
+                  <option value="">Select a topic</option>
+                  <option value="internship">Internship Opportunity</option>
+                  <option value="project">Project Collaboration</option>
+                  <option value="research">Research Opportunity</option>
+                  <option value="other">Something Else</option>
+                </select>
+              </div>
+              <div class="fg"><label for="message" class="fl mono">Your Message</label><textarea id="message" name="message" class="fi" rows="5" placeholder="Tell me about the opportunity..." required></textarea></div>
+              <button type="submit" class="btn btn-primary btn-full" id="submit-btn">
+                <span>Send Message</span> <i class="fa-solid fa-paper-plane"></i>
+              </button>
+              <p class="form-success" id="form-success">
+                <i class="fa-solid fa-circle-check"></i> Sent! I'll reply within 24 hours.
+              </p>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <p class="footer-copy mono">© 2026 Christy Roy</p>
+      <p class="footer-made mono">Built with <span class="accent">♥</span> & circuits</p>
+      <nav class="footer-nav">
+        <a href="#home">Home</a><a href="#about">About</a>
+        <a href="#projects">Work</a><a href="#certifications">Certs</a><a href="#contact">Contact</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
 </body>
 </html>
-
-
-
-
-
